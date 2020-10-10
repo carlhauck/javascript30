@@ -137,8 +137,6 @@
     }
   }
 
-  }
-
   function shiftTrue(e) {
     if (e.code === "ShiftLeft") {
       shift = true;
@@ -152,8 +150,6 @@
   }
 
   checkboxes.forEach(checkbox => checkbox.addEventListener('change', check));
-  console.dir(checkboxes);
-
   window.addEventListener('keydown', shiftTrue);
   window.addEventListener('keyup', shiftFalse);
 
