@@ -99,21 +99,63 @@
   
   const checkboxes = document.querySelectorAll('input');
   const checkboxArray = Array.from(checkboxes);
+  let shift = false;
 
   function check(e) {
-    console.log(checkboxes);
-    console.dir(e.srcElement);
     let input = e.srcElement;
     let index = checkboxArray.indexOf(input);
-    console.log(index);
+    if (shift === true) {
+      let minMaxIndex = checkedMin(index);
+      while (minMaxIndex < index || index < minMaxIndex) {
+        if (minMaxIndex < index) {
+          checkboxArray[minMaxIndex + 1].checked = true;
+          minMaxIndex++;
+        } else {
+          checkboxArray[index + 1].checked = true;
+          index++;
+        }
+      }
+    }
+  }
 
-    
+  function checkedMin(checkedIndex) {
+    const minChecked = checkboxArray.find(checkbox => checkbox.checked === true);
+    const minIndex = checkboxArray.indexOf(minChecked);
+    if (checkedIndex === minIndex) {
+      return checkedMax(checkedIndex);
+    } else {
+      return checkboxArray.indexOf(minChecked);
+    }
+  }
+
+  function checkedMax(checkedIndex) {
+    for (var index = checkboxArray.length - 1; index >= 0; index--) {
+      if (checkboxArray[index].checked === true) {
+        const maxChecked = checkboxArray[index];
+        return checkboxArray.indexOf(maxChecked);
+      }
+    }
+  }
+
+  }
+
+  function shiftTrue(e) {
+    if (e.code === "ShiftLeft") {
+      shift = true;
+    }
+  }
+
+  function shiftFalse(e) {
+    if (e.code === "ShiftLeft") {
+      shift = false;
+    }
   }
 
   checkboxes.forEach(checkbox => checkbox.addEventListener('change', check));
   console.dir(checkboxes);
 
-  window.addEventListener('keydown', shiftCheck);
+  window.addEventListener('keydown', shiftTrue);
+  window.addEventListener('keyup', shiftFalse);
 
 </script>
 </body>
