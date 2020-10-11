@@ -97,21 +97,21 @@
 
 <script>
   
-  const checkboxes = document.querySelectorAll('input');
-  const checkboxArray = Array.from(checkboxes);
+  const allInputs = document.querySelectorAll('input');
+  const inputArray = Array.from(allInputs);
   let shift = false;
 
-  function check(e) {
+  function checkInput(e) {
     let input = e.srcElement;
-    let index = checkboxArray.indexOf(input);
+    let index = inputArray.indexOf(input);
     if (shift === true) {
       let minMaxIndex = checkedMin(index);
       while (minMaxIndex < index || index < minMaxIndex) {
         if (minMaxIndex < index) {
-          checkboxArray[minMaxIndex + 1].checked = true;
+          inputArray[minMaxIndex + 1].checked = true;
           minMaxIndex++;
         } else {
-          checkboxArray[index + 1].checked = true;
+          inputArray[index + 1].checked = true;
           index++;
         }
       }
@@ -119,37 +119,37 @@
   }
 
   function checkedMin(checkedIndex) {
-    const minChecked = checkboxArray.find(checkbox => checkbox.checked === true);
-    const minIndex = checkboxArray.indexOf(minChecked);
+    const minChecked = inputArray.find(input => input.checked === true);
+    const minIndex = inputArray.indexOf(minChecked);
     if (checkedIndex === minIndex) {
       return checkedMax(checkedIndex);
     } else {
-      return checkboxArray.indexOf(minChecked);
+      return inputArray.indexOf(minChecked);
     }
   }
 
   function checkedMax(checkedIndex) {
-    for (var index = checkboxArray.length - 1; index >= 0; index--) {
-      if (checkboxArray[index].checked === true) {
-        const maxChecked = checkboxArray[index];
-        return checkboxArray.indexOf(maxChecked);
+    for (var index = inputArray.length - 1; index >= 0; index--) {
+      if (inputArray[index].checked === true) {
+        const maxChecked = inputArray[index];
+        return inputArray.indexOf(maxChecked);
       }
     }
   }
 
   function shiftTrue(e) {
-    if (e.code === "ShiftLeft") {
+    if (e.code === "ShiftLeft" || "ShiftRight") {
       shift = true;
     }
   }
 
   function shiftFalse(e) {
-    if (e.code === "ShiftLeft") {
+    if (e.code === "ShiftLeft" || "ShiftRight") {
       shift = false;
     }
   }
 
-  checkboxes.forEach(checkbox => checkbox.addEventListener('change', check));
+  allInputs.forEach(input => input.addEventListener('change', checkInput));
   window.addEventListener('keydown', shiftTrue);
   window.addEventListener('keyup', shiftFalse);
 
