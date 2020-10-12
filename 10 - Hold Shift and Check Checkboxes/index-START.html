@@ -149,9 +149,13 @@
     }
   }
 
-  allInputs.forEach(input => input.addEventListener('change', checkInput));
+  allInputs.forEach(input => input.addEventListener('change', checkInput)); // 'click' will fire even if you use your keyboard
   window.addEventListener('keydown', shiftTrue);
   window.addEventListener('keyup', shiftFalse);
+
+  // would need to set a variable for most recently checked
+
+  // official solution doesn't include a solution that toggles between checking and unchecking (like the Gmail interface does)
 
 </script>
 </body>
