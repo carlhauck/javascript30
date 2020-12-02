@@ -42,7 +42,19 @@
 
 <button></button>
 <script>
+  const divs = document.querySelectorAll('div');
 
+  function logText(e) {
+    console.log(this.classList.value);
+    e.stopPropagation();
+  }
+
+  divs.forEach(div => div.addEventListener('click', logText));
+
+  // normally, a click on a nested item will trigger the event listener to work from the top down to the inner-most nested item that was clicked, and then it will fire off whatever functions are called for as it bubbles outward
+  // e.stopPropogation => stops bubbling after one layer of the nest
+  // capture: true => fires events as it moves inward (instead of going all the way inward and doing it while moving outward)
+  // once: true => event listener only fires off function once before unbinding
 </script>
 </body>
 </html>
